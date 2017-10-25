@@ -38,7 +38,7 @@ namespace Folder
                 //Inicializacion de DirectoryInfo dando el camino variable "folder"
                 var di = new DirectoryInfo(folder);
                 //Obtiene los archivos con la variable di y los asigna a la variable files
-                var files = di.GetFiles("*.txt");
+                var files = di.GetFiles("*." + VGlobales.tipo.ToString());
                 //Inicializacion de un DataTable llamado Dtable
                 DataTable Dtable = new DataTable();
                 //Asignacion de columna Archivos en la DataTable y su tipo a texto
@@ -60,7 +60,41 @@ namespace Folder
 
         private void Btn_Buscar_Click(object sender, EventArgs e)
         {
-            Buscar();
+            //Si el radiobutton Word esta checado, convierte la variable global tipo en una cadena con el tipo de formato de Microsoft Word
+            if (Rdb_Word.Checked)
+            {
+                VGlobales.tipo = ("docx");
+                Buscar();
+            }
+            //Si el radiobutton Excel esta checado, convierte la variable global tipo en una cadena con el tipo de formato de Microsoft Excel
+            else if (Rdb_Excel.Checked)
+            {
+                VGlobales.tipo = ("xlsx");
+                Buscar();
+            }
+            //Si el radiobutton PwrPoint esta checado, convierte la variable global tipo en una cadena con el tipo de formato de Microsoft Power Point
+            else if (Rdb_PwrPoint.Checked)
+            {
+                VGlobales.tipo = ("pptx");
+                Buscar();
+            }
+            //Si el radiobutton Text esta checado, convierte la variable global tipo en una cadena con el tipo de formato de texto
+            else if (Rdb_Text.Checked)
+            {
+                VGlobales.tipo = ("txt");
+                Buscar();
+            }
+            //Si el radiobutton Jpeg esta checado, convierte la variable global tipo en una cadena con el tipo de formato de Imagenes jpeg
+            else if (Rdb_Jpeg.Checked)
+            {
+                VGlobales.tipo = ("jpg");
+                Buscar();
+            }
+            //Sino se cumple ninguna condicion, se muestra un mensaje indicando al usuario que debe seleccionar un formato
+            else
+            {
+                MessageBox.Show("Debes seleccionar un tipo de formato");
+            }
         }
     }
 }
