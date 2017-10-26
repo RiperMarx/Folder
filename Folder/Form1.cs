@@ -32,6 +32,8 @@
         /// </summary>
         public void Buscar()
         {
+            // Variable x
+            int x = 0;
             // Variable folder
             string folder = "";
             // Inicializacion de FolderBrowserDialog
@@ -54,14 +56,23 @@
                 DataRow line;
                 // Loop para listar los archivos en el folder
                 foreach (var obj in files)
-                {
+                {                  
                     line = Dtable.NewRow();
                     line["Archivos"] = obj.ToString();
                     Dtable.Rows.Add(line);
+                    x++;
                 }
-                MessageBox.Show("Listo");
-                // Asigna la Data?Table para mostrarse en un DataGridView
+                MessageBox.Show("Listo \n se encontraron " + x + " valores");
+                // Asigna la DataTable para mostrarse en un DataGridView
                 Dgv_Grid.DataSource = Dtable;
+                // Restringe al usuario a solo lectura, a no aderir filas, a no borrar filas y no cambiar su tamaño
+                Dgv_Grid.Columns[0].ReadOnly = true;
+                Dgv_Grid.AllowUserToAddRows = false;
+                Dgv_Grid.AllowUserToDeleteRows = false;
+                Dgv_Grid.AllowUserToResizeRows = false;
+                // Inicializacion de DataGidViewColumn llamado columna, se asigna tamaño automatico dependiendo del tamaño de las celdas mostradas
+                DataGridViewColumn columna = Dgv_Grid.Columns[0];
+                columna.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             }
         }
 
@@ -107,6 +118,11 @@
             {
                 MessageBox.Show("Debes seleccionar un tipo de formato");
             }
+        }
+
+        private void Gpb_RadioGroup_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }
