@@ -4,6 +4,8 @@
     using System.Data;
     using System.Windows.Forms;
     using System.IO;
+    using Excel = Microsoft.Office.Interop.Excel;
+    using System.Reflection;
 
     /// <summary>
     /// Clase principal de la inxializacion de la forma
@@ -16,6 +18,27 @@
         /// </summary>
         public Form1()
         {
+
+            
+            /*var xlApp = new Excel.Application();
+
+
+            xlApp.Visible = false;
+            
+            var xlWb = xlApp.Workbooks.Add();
+
+            xlWb.Worksheets.Add(Type.Missing,Type.Missing,3,Excel.XlSheetType.xlWorksheet);
+
+            MessageBox.Show(xlWb.Worksheets.Count.ToString());*/
+
+            
+
+
+
+            
+
+          
+
             InitializeComponent();
         }
 
@@ -25,6 +48,7 @@
         public class VGlobales{
             // Variable tipo
             public static string tipo  { get; set; }
+            public static string f { get; set; }
         }
 
         /// <summary>
@@ -32,6 +56,10 @@
         /// </summary>
         public void Buscar()
         {
+       
+
+
+
             // Variable x
             int x = 0;
             // Variable folder
@@ -77,6 +105,33 @@
         }
 
         /// <summary>
+        /// Metodo para agregar un nuevo tipo de formato
+        /// </summary>
+        public void NFormat()
+        {
+            // Si el texto del textbox NFormat no tiene nada
+            if (Txt_NFormat.Text.ToString() == "")
+            {
+                // Se activa un messagebox pidiendo agregar la extension
+                MessageBox.Show("Agrega una extencion");
+            }
+            else
+            {
+                // Sino, el valor de la variable f de la clase VGlobales sera igual al texto del textbox
+                VGlobales.f = Txt_NFormat.Text.ToString();
+                // Radiobutton NFormat adquiere el texto que se coloco en el textbox
+                Rdb_NFormat.Text = Txt_NFormat.Text.ToString();
+                // Se visualiza el Radiobutton NFormat
+                Rdb_NFormat.Visible = true;
+            }
+        }
+
+        private void Btn_NFormat_Click(object sender, EventArgs e)
+        {
+            NFormat();
+        }
+
+        /// <summary>
         /// Evento boton click, contirnr validacion de radiobutttons, cambia elvalor de la variable global e inicia el metodo Buscar
         /// </summary>
         /// <param name="sender">Parametro default de envio</param>
@@ -113,16 +168,17 @@
                 VGlobales.tipo = ("jpg");
                 Buscar();
             }
+            // Si el radiobutton extra esta checado, convierte la variable global tipo en una cadena con el tipo de formato elegido
+            else if (Rdb_NFormat.Checked)
+            {
+                VGlobales.tipo = VGlobales.f.ToString();
+                Buscar();
+            }
             // Sino se cumple ninguna condicion, se muestra un mensaje indicando al usuario que debe seleccionar un formato
             else
             {
                 MessageBox.Show("Debes seleccionar un tipo de formato");
             }
-        }
-
-        private void Gpb_RadioGroup_Enter(object sender, EventArgs e)
-        {
-
         }
     }
 }
