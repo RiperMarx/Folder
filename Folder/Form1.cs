@@ -4,8 +4,6 @@
     using System.Data;
     using System.Windows.Forms;
     using System.IO;
-    using Excel = Microsoft.Office.Interop.Excel;
-    using System.Reflection;
 
     /// <summary>
     /// Clase principal de la inxializacion de la forma
@@ -66,6 +64,8 @@
             string folder = "";
             // Inicializacion de FolderBrowserDialog
             FolderBrowserDialog buscarf = new FolderBrowserDialog();
+            // Descripcion del objeto buscarf
+            buscarf.Description = "Selecciona el folder con los archivos a evaluar";
             //Desactivacion de NewFolderButton
             buscarf.ShowNewFolderButton = false;
             // Validacion de cuadro de dialogo
